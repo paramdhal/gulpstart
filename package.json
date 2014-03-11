@@ -1,11 +1,12 @@
 {
-  "name": "Gulp Start",
+  "name": "gulpstart",
   "version": "0.0.0",
   "dependencies": {},
   "devDependencies": {
     "gulp": "^3.5.5",
     "gulp-ruby-sass": "^0.4.0",
-    "gulp-plumber": "^0.5.6"
+    "gulp-plumber": "^0.5.6",
+    "browser-sync": "^0.7.0"
   },
   "engines": {
     "node": ">=0.10.0"
