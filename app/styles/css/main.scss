@@ -4,8 +4,3 @@
 body{
 	background-color: #fff;
 }
-
-p{
-	@include inline-block;
-	@include clearfix;
-}
