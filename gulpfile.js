@@ -26,8 +26,11 @@ gulp.task('styles', function () {
 gulp.task('scripts', function() {
 	// Single entry point to browserify
 	gulp.src('app/js/src/app.js')
+		.pipe(plumber())
 		.pipe(browserify({
-			insertGlobals : true
+			insertGlobals : true,
+			debug: true,
+			transform: ['debowerify'],
 		}))
 		.pipe(gulp.dest('app/js/build'));
 });
