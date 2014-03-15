@@ -4,10 +4,11 @@
 
 var gulp = require('gulp'),
 	sass = require('gulp-sass'),
+	browserify = require('browserify'),
 	plumber = require('gulp-plumber'),
 	browserSync = require('browser-sync'),
 	bourbon = require('node-bourbon').includePaths,
-	browserify = require('gulp-browserify');
+	source = require('vinyl-source-stream');
 
 // Styles
 gulp.task('styles', function () {
@@ -25,13 +26,13 @@ gulp.task('styles', function () {
 
 gulp.task('scripts', function() {
 	// Single entry point to browserify
-	gulp.src('app/js/src/app.js')
+
+	var b = browserify();
+	var bundleStream = b.add('./app/js/src/app.js').bundle();
+	
+	 bundleStream
+		.pipe(source('app.js'))
 		.pipe(plumber())
-		.pipe(browserify({
-			insertGlobals : true,
-			debug: true,
-			transform: ['debowerify'],
-		}))
 		.pipe(gulp.dest('app/js/build'));
 });
 
@@ -53,3 +54,6 @@ gulp.task('watch',['styles', 'browser-sync'], function() {
 	gulp.watch('app/js/src/*.js',['scripts']);
 
 });
+
+
+

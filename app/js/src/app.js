@@ -1,3 +1,5 @@
 'use strict';
 
-console.log("Hello");
+var $ = require('jquery');
+
+console.log($().jquery);

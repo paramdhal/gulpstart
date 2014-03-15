@@ -8,10 +8,21 @@
     "browser-sync": "^0.7.0",
     "node-bourbon": "^1.0.0",
     "gulp-sass": "^0.7.1",
-    "gulp-browserify": "^0.5.0",
-    "debowerify": "^0.7.0"
+    "debowerify": "^0.7.0",
+    "browserify": "^3.32.1",
+    "browserify-shim": "^3.3.1",
+    "vinyl-source-stream": "^0.1.1"
   },
   "engines": {
     "node": ">=0.10.0"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim",
+      "debowerify"
+    ]
+  },
+  "browserify-shim": {
+    "jquery": "global:$"
   }
 }
