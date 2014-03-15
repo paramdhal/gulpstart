@@ -1,5 +1,9 @@
 'use strict';
 
 var $ = require('jquery');
+var time = require('./time');
 
-console.log($().jquery);
+setInterval(function(){
+	$('#time').text(time());
+},1000);
+

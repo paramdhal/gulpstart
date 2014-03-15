@@ -8,7 +8,8 @@ var gulp = require('gulp'),
 	plumber = require('gulp-plumber'),
 	browserSync = require('browser-sync'),
 	bourbon = require('node-bourbon').includePaths,
-	source = require('vinyl-source-stream');
+	source = require('vinyl-source-stream'),
+	gutil = require('gulp-util');
 
 // Styles
 gulp.task('styles', function () {
@@ -27,8 +28,13 @@ gulp.task('styles', function () {
 gulp.task('scripts', function() {
 	// Single entry point to browserify
 
-	var b = browserify();
-	var bundleStream = b.add('./app/js/src/app.js').bundle();
+	var b = browserify({
+		basedir: './app/js/src/',
+		extensions: '.coffee'
+	});
+	var bundleStream = b.add('./app.js').bundle()
+		.on('error',gutil.log)
+		.on('error',gutil.beep);
 	
 	 bundleStream
 		.pipe(source('app.js'))
@@ -52,6 +58,7 @@ gulp.task('watch',['styles', 'browser-sync'], function() {
 	// Watch .scss files
 	gulp.watch('app/styles/scss/*.scss', ['styles']);
 	gulp.watch('app/js/src/*.js',['scripts']);
+	gulp.watch('app/js/src/*.coffee',['scripts']);
 
 });
 
