@@ -32,7 +32,9 @@ gulp.task('scripts', function() {
 		basedir: './app/js/src/',
 		extensions: '.coffee'
 	});
-	var bundleStream = b.add('./app.js').bundle()
+	var bundleStream = b.add('./app.js').bundle({
+			debug: true
+		})
 		.on('error',gutil.log)
 		.on('error',gutil.beep);
 	
