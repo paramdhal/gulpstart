@@ -5,7 +5,6 @@
 var gulp = require('gulp'),
 	sass = require('gulp-sass'),
 	browserify = require('browserify'),
-	plumber = require('gulp-plumber'),
 	browserSync = require('browser-sync'),
 	bourbon = require('node-bourbon').includePaths,
 	source = require('vinyl-source-stream'),
@@ -14,11 +13,13 @@ var gulp = require('gulp'),
 // Styles
 gulp.task('styles', function () {
 	return gulp.src('app/styles/scss/*.scss')
-		.pipe(plumber())
 		.pipe(sass({
 			outputStyle: 'compressed',
 			includePaths : [bourbon],
-			errLogToConsole: true
+			onError: function(error){
+				gutil.beep();
+				gutil.log(error);
+			}
 		}))
 		.pipe(gulp.dest('app/styles/css/'));
 });
@@ -40,7 +41,6 @@ gulp.task('scripts', function() {
 	
 	 bundleStream
 		.pipe(source('app.js'))
-		.pipe(plumber())
 		.pipe(gulp.dest('app/js/build'));
 });
 
