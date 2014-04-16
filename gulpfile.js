@@ -8,13 +8,15 @@ var gulp = require('gulp'),
 	browserSync = require('browser-sync'),
 	bourbon = require('node-bourbon').includePaths,
 	source = require('vinyl-source-stream'),
-	gutil = require('gulp-util');
+	gutil = require('gulp-util'),
+	task = gutil.env._[0];
+
 
 // Styles
 gulp.task('styles', function () {
 	return gulp.src('app/styles/scss/*.scss')
 		.pipe(sass({
-			outputStyle: 'compressed',
+			outputStyle: task === 'build' ? 'compressed' : 'expanded',
 			includePaths : [bourbon],
 			onError: reportError
 		}))
@@ -64,6 +66,8 @@ gulp.task('watch',['styles','scripts', 'browser-sync'], function() {
 	gulp.watch('app/js/src/*.coffee',['scripts']);
 
 });
+
+gulp.task('build',['styles','scripts']);
 
 
 
