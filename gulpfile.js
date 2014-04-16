@@ -55,7 +55,7 @@ gulp.task('browser-sync', function() {
 
 
 
-gulp.task('watch',['styles', 'browser-sync'], function() {
+gulp.task('watch',['styles','scripts', 'browser-sync'], function() {
 
 	// Watch .scss files
 	gulp.watch('app/styles/scss/*.scss', ['styles']);
