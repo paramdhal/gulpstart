@@ -8,7 +8,9 @@ var gulp = require('gulp'),
 	browserSync = require('browser-sync'),
 	bourbon = require('node-bourbon').includePaths,
 	source = require('vinyl-source-stream'),
+	streamify = require('gulp-streamify'),
 	gutil = require('gulp-util'),
+	uglify = require('gulp-uglify'),
 	task = gutil.env._[0];
 
 
@@ -39,6 +41,7 @@ gulp.task('scripts', function() {
 	
 	 bundleStream
 		.pipe(source('app.js'))
+		.pipe(task === 'build' ? streamify(uglify()) : gutil.noop())
 		.pipe(gulp.dest('app/js/build'));
 });
 
