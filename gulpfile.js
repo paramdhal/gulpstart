@@ -16,10 +16,7 @@ gulp.task('styles', function () {
 		.pipe(sass({
 			outputStyle: 'compressed',
 			includePaths : [bourbon],
-			onError: function(error){
-				gutil.beep();
-				gutil.log(error);
-			}
+			onError: reportError
 		}))
 		.pipe(gulp.dest('app/styles/css/'));
 });
@@ -36,13 +33,17 @@ gulp.task('scripts', function() {
 	var bundleStream = b.add('./app.js').bundle({
 			debug: true
 		})
-		.on('error',gutil.log)
-		.on('error',gutil.beep);
+		.on('error',reportError);
 	
 	 bundleStream
 		.pipe(source('app.js'))
 		.pipe(gulp.dest('app/js/build'));
 });
+
+function reportError(error){
+	gutil.log(gutil.colors.red(error));
+	gutil.beep();
+}
 
 // Browser sync
 gulp.task('browser-sync', function() {
