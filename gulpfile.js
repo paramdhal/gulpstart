@@ -2,27 +2,26 @@
 
 'use strict';
 
-var gulp = require('gulp'),
-	sass = require('gulp-sass'),
-	browserify = require('browserify'),
-	browserSync = require('browser-sync'),
-	bourbon = require('node-bourbon').includePaths,
-	source = require('vinyl-source-stream'),
-	streamify = require('gulp-streamify'),
-	gutil = require('gulp-util'),
-	uglify = require('gulp-uglify'),
-	task = gutil.env._[0];
-
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+var browserify = require('browserify');
+var browserSync = require('browser-sync');
+var bourbon = require('node-bourbon').includePaths;
+var source = require('vinyl-source-stream');
+var streamify = require('gulp-streamify');
+var gutil = require('gulp-util');
+var uglify = require('gulp-uglify');
+var task = gutil.env._[0];
 
 // Styles
 gulp.task('styles', function () {
-	return gulp.src('app/styles/scss/*.scss')
+	return gulp.src('app/scss/**/*.scss')
 		.pipe(sass({
 			outputStyle: task === 'build' ? 'compressed' : 'expanded',
 			includePaths : [bourbon],
 			onError: reportError
 		}))
-		.pipe(gulp.dest('app/styles/css/'));
+		.pipe(gulp.dest('app/build/css/'));
 });
 
 //Scripts
@@ -42,7 +41,7 @@ gulp.task('scripts', function() {
 	 bundleStream
 		.pipe(source('app.js'))
 		.pipe(task === 'build' ? streamify(uglify()) : gutil.noop())
-		.pipe(gulp.dest('app/js/build'));
+		.pipe(gulp.dest('app/build/js'));
 });
 
 function reportError(error){
@@ -52,7 +51,7 @@ function reportError(error){
 
 // Browser sync
 gulp.task('browser-sync', function() {
-	browserSync.init(['app/styles/css/*.css', 'app/*.html', 'app/js/build/app.js'], {
+	browserSync.init(['app/build/css/*.css', 'app/*.html', 'app/build/js/app.js'], {
 		server: {
 			baseDir: './app'
 		}
@@ -64,7 +63,7 @@ gulp.task('browser-sync', function() {
 gulp.task('watch',['styles','scripts', 'browser-sync'], function() {
 
 	// Watch .scss files
-	gulp.watch('app/styles/scss/**/*.scss', ['styles']);
+	gulp.watch('app/scss/**/*.scss', ['styles']);
 	gulp.watch('app/js/src/**/*.js',['scripts']);
 	gulp.watch('app/js/src/**/*.coffee',['scripts']);
 
