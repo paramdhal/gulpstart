@@ -21,7 +21,8 @@ gulp.task('styles', function () {
 			includePaths : [bourbon],
 			onError: reportError
 		}))
-		.pipe(gulp.dest('app/build/css/'));
+		.pipe(gulp.dest('app/build/css/'))
+		.pipe(browserSync.reload({stream:true}));
 });
 
 //Scripts
@@ -41,7 +42,8 @@ gulp.task('scripts', function() {
 	 bundleStream
 		.pipe(source('app.js'))
 		.pipe(task === 'build' ? streamify(uglify()) : gutil.noop())
-		.pipe(gulp.dest('app/build/js'));
+		.pipe(gulp.dest('app/build/js'))
+		.pipe(browserSync.reload({stream:true}));
 });
 
 function reportError(error){
@@ -52,18 +54,21 @@ function reportError(error){
 
 // Browser sync
 gulp.task('browser-sync', function() {
-	browserSync.init(['app/build/css/*.css', 'app/*.html', 'app/build/js/app.js'], {
+	browserSync.init(null, {
 		server: {
 			baseDir: './app'
 		}
 	});
 });
 
+// Reload all Browsers
+gulp.task('bs-reload', function () {
+	browserSync.reload();
+});
 
 
 gulp.task('watch',['styles','scripts', 'browser-sync'], function() {
-
-	// Watch .scss files
+	gulp.watch('app/*.html', ['bs-reload']);
 	gulp.watch('app/scss/**/*.scss', ['styles']);
 	gulp.watch('app/js/src/**/*.js',['scripts']);
 	gulp.watch('app/js/src/**/*.coffee',['scripts']);
