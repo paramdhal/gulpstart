@@ -5,18 +5,18 @@
     "moment": "^2.5.1"
   },
   "devDependencies": {
-    "gulp": "^3.5.5",
-    "browser-sync": "^0.7.0",
-    "node-bourbon": "^1.0.0",
-    "gulp-sass": "^0.7.1",
-    "debowerify": "^0.7.0",
+    "browser-sync": "^0.9.1",
     "browserify": "^3.32.1",
     "browserify-shim": "^3.3.1",
-    "vinyl-source-stream": "^0.1.1",
     "coffeeify": "^0.6.0",
-    "gulp-util": "^2.2.14",
+    "debowerify": "^0.7.0",
+    "gulp": "^3.5.5",
+    "gulp-sass": "^0.7.1",
+    "gulp-streamify": "0.0.5",
     "gulp-uglify": "^0.2.1",
-    "gulp-streamify": "0.0.5"
+    "gulp-util": "^2.2.14",
+    "node-bourbon": "^1.0.0",
+    "vinyl-source-stream": "^0.1.1"
   },
   "engines": {
     "node": ">=0.10.0"

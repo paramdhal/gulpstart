@@ -46,6 +46,7 @@ gulp.task('scripts', function() {
 
 function reportError(error){
 	gutil.log(gutil.colors.red(error));
+	browserSync.notify(error);
 	gutil.beep();
 }
 
