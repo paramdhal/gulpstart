@@ -10,6 +10,7 @@ streamify = require 'gulp-streamify'
 gutil = require 'gulp-util'
 uglify = require 'gulp-uglify'
 task = gutil.env._[0]
+notify = require("gulp-notify");
 
 #Styles
 gulp.task 'styles', ->
@@ -17,7 +18,8 @@ gulp.task 'styles', ->
 		.pipe sass
 			outputStyle: if task is 'build' then 'compressed' else 'expanded'
 			includePaths : [bourbon]
-			onError: reportError
+			errLogToConsole: false
+			onError: (err) -> notify().write err
 		.pipe gulp.dest 'app/build/css/'
 		.pipe browserSync.reload stream:true
 
@@ -40,10 +42,17 @@ gulp.task 'scripts', ->
 		.pipe gulp.dest 'app/build/js'
 		.pipe browserSync.reload stream:true
 
-reportError = (error) ->
-	gutil.log gutil.colors.red(error)
-	browserSync.notify error
-	gutil.beep()
+reportError = (errors...) ->
+	
+	console.log errors
+
+	notify.onError
+		title: "Compile Error"
+		message: "<%= error.message %>"
+	.apply(this, errors)
+
+	this.emit 'end'
+	
 
 #Browser sync
 gulp.task 'browser-sync', ->

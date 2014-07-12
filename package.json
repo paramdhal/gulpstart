@@ -12,6 +12,7 @@
     "coffeeify": "^0.6.0",
     "debowerify": "^0.7.0",
     "gulp": "^3.5.5",
+    "gulp-notify": "^1.4.0",
     "gulp-sass": "^0.7.1",
     "gulp-streamify": "0.0.5",
     "gulp-uglify": "^0.2.1",
