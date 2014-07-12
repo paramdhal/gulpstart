@@ -1,8 +1,8 @@
 {
   "name": "gulpstart",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": {
-    "moment": "^2.5.1"
+    "jquery": "^1.11.1"
   },
   "devDependencies": {
     "browser-sync": "^0.9.1",
@@ -26,11 +26,7 @@
   "browserify": {
     "transform": [
       "coffeeify",
-      "browserify-shim",
       "debowerify"
     ]
-  },
-  "browserify-shim": {
-    "jquery": "global:$"
   }
 }
