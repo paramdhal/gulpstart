@@ -1,0 +1,12 @@
+@function em($pxval, $base: $baseFontSize) {
+  @return ($pxval / $base) * 1em;
+}
+
+// Font sizing using rems with a fallback to px in unsupported
+// Font-size of 62.5% must be set on body
+
+
+@mixin font-size($sizeValue: 16){
+  font-size: $sizeValue + px;
+  font-size: ($sizeValue / 10) + rem;
+}

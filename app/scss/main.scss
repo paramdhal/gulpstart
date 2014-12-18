@@ -1,6 +1,9 @@
 @import 'bourbon';
 @import 'utils/reset';
+@import 'default';
+@import 'utils/mixins';
+@import 'utils/variables';
 
 body{
-	background-color: #fff;
+	background-color: $white;
 }
