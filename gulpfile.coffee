@@ -29,14 +29,14 @@ gulp.task 'scripts', ->
 	#Single entry point to browserify
 	b = browserify
 		basedir: './app/js/src/'
-		extensions: '.coffee'
+		extensions: '.coffee',
+		debug: true
 	
 	bundleStream = b.add './app.js'
-		.bundle
-			debug: true
+		.bundle()
 		.on 'error',reportError
 
-	 bundleStream
+	bundleStream
 		.pipe source 'app.js'
 		.pipe if task is 'build' then streamify uglify() else gutil.noop()
 		.pipe gulp.dest 'app/build/js'
@@ -65,7 +65,7 @@ gulp.task 'browser-sync', ->
 gulp.task 'bs-reload', -> browserSync.reload()
 
 #Watch files
-gulp.task 'watch', ['styles','scripts', 'browser-sync'], ->
+gulp.task 'default', ['styles','scripts', 'browser-sync'], ->
 	gulp.watch 'app/*.html', ['bs-reload']
 	gulp.watch 'app/scss/**/*.scss', ['styles']
 	gulp.watch 'app/js/src/**/*.js',['scripts']
