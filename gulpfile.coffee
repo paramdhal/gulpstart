@@ -15,11 +15,11 @@ notify = require("gulp-notify");
 #Styles
 gulp.task 'styles', ->
 	gulp.src 'app/scss/**/*.scss'
-		.pipe sass
+		.pipe sass(
 			outputStyle: if task is 'build' then 'compressed' else 'expanded'
 			includePaths : [bourbon]
 			errLogToConsole: false
-			onError: (err) -> notify().write err
+		).on('error',reportError)
 		.pipe gulp.dest 'app/build/css/'
 		.pipe browserSync.reload stream:true
 
