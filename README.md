@@ -5,10 +5,11 @@ Quick start for frontend development.
 
 - Uses node sass (quick)
 - Bourbon scss library
-- Browerify for modular javascrpit
+- Browserify for modular javascrpit
+- Watchify for faster browserify builds
 - Debowerify to inlcude bower modules
-- Coffeeify for coffee support
-- Browser sync 
+- Browser sync
+- Babel
 
 ##Installation
 

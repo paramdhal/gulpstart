@@ -1,6 +1,9 @@
 'use strict';
 
-var $ = require('jquery');
+const $ = require('jquery');
 
 console.log("jQuery verison: "+$().jquery);
+
+
+
 
